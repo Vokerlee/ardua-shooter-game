@@ -27,6 +27,8 @@ namespace ard
     const double SCALE = 50;
 
     // OBJECTS_2D
+    const int CIRCLE_CONVEX_NUMBER = 30;
+
     const sf::Color OUTLINE_COLOR = { 0, 0, 0, 255 };
     const sf::Color FILL_COLOR = { 14, 174, 174, 255 };
     const int OUTLINE_THICKNESS = 2;

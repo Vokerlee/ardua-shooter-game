@@ -38,4 +38,4 @@ namespace ard
     }
 }
 
-#endif POINT_2D_H
+#endif // POINT_2D_H

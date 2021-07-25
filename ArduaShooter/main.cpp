@@ -1,8 +1,8 @@
-#include <cstdio>
+#include "../config/config.hpp"
 
 int main()
 {
-    printf("ArduaShooter");
+    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Ardua Shooter");
 
     return 0;
 }

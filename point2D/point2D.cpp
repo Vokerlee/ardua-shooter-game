@@ -18,16 +18,6 @@ void Point2D::operator-=(const Point2D& point2D)
     this->x -= point2D.x; this->y -= point2D.y;
 }
 
-Point2D Point2D::operator*(double number)
-{
-    return { this->x *= number, this->y *= number };
-}
-
-Point2D Point2D::operator/(double number)
-{
-    return { this->x /= number, this->y /= number };
-}
-
 Point2D Point2D::operator+(const Point2D& point2D) const
 {
     return { this->x + point2D.x, this->y + point2D.y };
@@ -36,6 +26,31 @@ Point2D Point2D::operator+(const Point2D& point2D) const
 Point2D Point2D::operator-(const Point2D& point2D) const
 {
     return { this->x - point2D.x, this->y - point2D.y };
+}
+
+void Point2D::operator*=(double number)
+{
+    this->x *= number; this->y *= number;
+}
+
+void Point2D::operator/=(double number)
+{
+    this->x /= number; this->y /= number;
+}
+
+Point2D Point2D::operator*(double number)
+{
+    return { this->x * number, this->y * number };
+}
+
+Point2D Point2D::operator/(double number)
+{
+    return { this->x / number, this->y / number };
+}
+
+Point2D operator*(double number, const Point2D& point2D)
+{
+    return { point2D.x * number, point2D.y * number };
 }
 
 Point2D Point2D::normalize()

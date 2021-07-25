@@ -17,11 +17,16 @@ namespace ard
         void operator+=(const Point2D& point2D);
         void operator-=(const Point2D& point2D);
 
+        Point2D operator+(const Point2D& point2D) const;
+        Point2D operator-(const Point2D& point2D) const;
+
+        void operator*=(double number);
+        void operator/=(double number);
+
         Point2D operator*(double number);
         Point2D operator/(double number);
 
-        Point2D operator+(const Point2D& point2D) const;
-        Point2D operator-(const Point2D& point2D) const;
+        friend Point2D operator*(double number, const Point2D& point2D);
 
         Point2D normalize();
         double abs();

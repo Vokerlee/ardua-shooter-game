@@ -2,7 +2,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Ardua Shooter");
+    sf::RenderWindow window(sf::VideoMode(ard::SCREEN_WIDTH, ard::SCREEN_HEIGHT), "Ardua Shooter");
 
     return 0;
 }

@@ -27,15 +27,9 @@ namespace ard
         double abs();
     };
 
-    int sign(double number)
-    {
-        return number >= 0 ? 1 : -1;
-    }
+    int sign(double number);
 
-    double cross(Point2D p1, Point2D p2)
-    {
-        return p1.x * p2.y - p1.y * p2.x;
-    }
-}
+    double cross(Point2D p1, Point2D p2);
+};
 
 #endif // POINT_2D_H

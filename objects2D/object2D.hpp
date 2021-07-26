@@ -18,7 +18,7 @@ namespace ard
         std::string name_;
 
         sf::Texture texture_;
-        std::string texture_name_;
+        std::string s_texture_;
 
         bool texture_loaded_ = false;
 
@@ -38,7 +38,7 @@ namespace ard
 
         std::vector<Point2D>& nodes();
 
-        sf::Texture& loadTexture();
+        sf::Texture& load_texture();
 
         void draw(sf::RenderWindow& window) override;
     };

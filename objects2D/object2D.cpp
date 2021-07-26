@@ -6,7 +6,7 @@ Object2D::Object2D(Point2D position, std::vector<Point2D> points, std::string te
     position_(position),
     points2D_(points),
     velocity_(velocity),
-    texture_name_(std::move(texture))
+    s_texture_(std::move(texture))
 {}
 
 double Object2D::x()
@@ -54,12 +54,12 @@ std::vector<Point2D>& Object2D::nodes()
     return points2D_;
 }
 
-sf::Texture& Object2D::loadTexture()
+sf::Texture& Object2D::load_texture()
 {
     if (texture_loaded_)
         return texture_;
 
-    if (texture_.loadFromFile(texture_name_))
+    if (texture_.loadFromFile(s_texture_))
         texture_loaded_ = true;
 
     texture_.setRepeated(true); // to duplicate the same picture in case it is smaller than screen

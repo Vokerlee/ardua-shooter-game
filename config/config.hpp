@@ -26,18 +26,29 @@ namespace ard
     const double SCREEN_WIDTH  = 25.6;                         // width  in SCALE // 25.6 * 50 = 1280
     const double SCREEN_HEIGHT = SCREEN_WIDTH / SCREEN_RATIO;  // height in SCALE // 14.4 * 50 = 720
 
+    const double SCREEN_PIX_WIDTH  = SCREEN_WIDTH  * SCALE;
+    const double SCREEN_PIX_HEIGHT = SCREEN_HEIGHT * SCALE;
+
     // WORLD  
     const double WORLD_SIZE = 6;  // size of the world in SCALE (length and width)
+    
+    // CAMERA
+    const double COLLISION_DISTANCE = 0.1;
+
+    // CAMERA
+    const int RADIUS_CAMERA = SCALE / 10;
+    const int CONVEX_NUMBER = 100;
 
     // OBJECTS_2D
     const int CIRCLE_CONVEX_NUMBER = 30;
+    const int DISTANCES_SEGMENTS   = SCREEN_WIDTH * SCALE;
 
 // TEXTURES 
 
-    const std::string WALL_TEXTURE  = "../textures/wall_tree.jpg";
+    const std::string WALL_TEXTURE  = "textures/wall_tree.jpg";
 
-    const std::string SKY_TEXTURE   = "../textures/sky.jpeg";
-    const std::string FLOOR_TEXTURE = "../textures/floor.jpg";
+    const std::string SKY_TEXTURE   = "textures/sky.jpeg";
+    const std::string FLOOR_TEXTURE = "textures/floor.jpg";
 
 // COLOURS
 
@@ -50,6 +61,12 @@ namespace ard
     const sf::Color OUTLINE_COLOR = { 0, 0, 0, 255 };
     const sf::Color FILL_COLOR    = { 14, 174, 174, 255 };
     const int OUTLINE_THICKNESS   = 2;
+
+    // CAMERA
+    const int OUTLINE_CAMERA_THICKNESS   = 1;
+    const sf::Color OUTLINE_CAMERA_COLOR = { 0, 0, 0, 255 };
+    const sf::Color FILL_CAMERA_COLOR    = { 255, 67, 67, 255 };
+    const sf::Color FILED_OF_VEW_COLOR   = { 255, 67, 67, 0 };
 
 };
 

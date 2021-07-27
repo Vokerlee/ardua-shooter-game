@@ -49,7 +49,7 @@ void World::draw(sf::RenderWindow& window)
 {
     sf::ConvexShape background;
 
-    // Polygons
+    // Polygon
     background.setPointCount(4);
     background.setPoint(0, sf::Vector2f(0, 0));
     background.setPoint(1, sf::Vector2f(length_ * SCALE, 0));

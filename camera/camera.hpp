@@ -66,9 +66,13 @@ namespace ard
         bool is_collision();
         bool is_textures();
 
-        void switch_smooth();
         void switch_collision();
         void switch_textures();
+        void switch_smooth();
+
+        void set_collision(bool value);
+        void set_textures(bool value);
+        void set_smooth(bool value);
     };
 
     std::pair<double, double> height(double distance);

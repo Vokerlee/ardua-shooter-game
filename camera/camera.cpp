@@ -302,11 +302,6 @@ bool Camera::is_textures()
     return b_textures_;
 }
 
-void Camera::switch_smooth()
-{
-   b_smooth_ = b_smooth_;
-}
-
 void Camera::switch_collision()
 {
     b_collision_ = !b_collision_;
@@ -315,4 +310,24 @@ void Camera::switch_collision()
 void Camera::switch_textures()
 {
     b_textures_ = !b_textures_;
+}
+
+void Camera::switch_smooth()
+{
+   b_smooth_ = !b_smooth_;
+}
+
+void Camera::set_collision(bool value)
+{
+    b_collision_ = value;
+}
+
+void Camera::set_textures(bool value)
+{
+    b_textures_ = value;
+}
+
+void Camera::set_smooth(bool value)
+{
+    b_smooth_ = value;
 }

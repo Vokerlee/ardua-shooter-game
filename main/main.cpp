@@ -2,6 +2,7 @@
 #include "../objects2D/polygon2D.hpp"
 #include "../world/world.hpp"
 #include "../camera/camera.hpp"
+#include "../menu/menu.hpp"
 
 int main()
 {
@@ -9,8 +10,9 @@ int main()
     sf::RenderWindow window(sf::VideoMode(ard::SCREEN_PIX_WIDTH, ard::SCREEN_PIX_HEIGHT), "Ardua Shooter");
 
     // WORLD
-    ard::World world;
+    ard::World world; // field 6 x 6
     ard::Camera camera(world, { 4, 3 });
+    ard::Menu menu(camera);
 
     // OBJECTS
     ard::Polygon2D wall1({ {0, 0}, {0, .1}, {6, .1}, {6, 0} }, { 0, 0 });
@@ -18,32 +20,32 @@ int main()
     ard::Polygon2D wall3({ {0, 0}, {0, .1}, {6, .1}, {6, 0} }, { 0, 6 });
     ard::Polygon2D wall4({ {0, 0}, {.1, 0}, {.1, 6}, {0, 6} }, { 6, 0 });
 
-    ard::Circle2D sphere1(.3, { 0, 0 });
-    ard::Circle2D sphere2(.3, { 6, 0 });
-    ard::Circle2D sphere3(.3, { 6, 6 });
-    ard::Circle2D sphere4(.3, { 0, 6 });
-
     ard::Polygon2D object1({ {1, 1}, {2.35, 1}, {1.5, 2} }, { 1, .1 });
     ard::Polygon2D object2({ {1, 1}, {2, 2}, {1, 3}, {1, 2} }, { 1, 1 });
     ard::Polygon2D object3({ {0, 0}, {.1, 0}, {.1, .1}, {0, .1} }, { 3.5, 1 });
     ard::Polygon2D object4({ {0, 0}, {.3, 0}, {.3, .3}, {0, .3} }, { 4, 3 });
     ard::Polygon2D object5({ {0, 0}, {.3, 0}, {.3, .3}, {0, .3} }, { 3, 4 });
 
+    ard::Circle2D sphere1(.3, { 0, 0 });
+    ard::Circle2D sphere2(.3, { 6, 0 });
+    ard::Circle2D sphere3(.3, { 6, 6 });
+    ard::Circle2D sphere4(.3, { 0, 6 });
+
     world.add_object2D(wall1, "wall1");
     world.add_object2D(wall2, "wall2");
     world.add_object2D(wall3, "wall3");
     world.add_object2D(wall4, "wall4");
-
-    world.add_object2D(sphere1, "sphere1");
-    world.add_object2D(sphere2, "sphere2");
-    world.add_object2D(sphere3, "sphere3");
-    world.add_object2D(sphere4, "sphere4");
 
     world.add_object2D(object1, "object1");
     world.add_object2D(object2, "object2");
     world.add_object2D(object3, "object3");
     world.add_object2D(object4, "object4");
     world.add_object2D(object5, "object5");
+
+    world.add_object2D(sphere1, "sphere1");
+    world.add_object2D(sphere2, "sphere2");
+    world.add_object2D(sphere3, "sphere3");
+    world.add_object2D(sphere4, "sphere4");
 
     // RENDERING
     auto previous_time = std::chrono::system_clock::now();
@@ -68,14 +70,20 @@ int main()
         }
 
         window.clear();
+
+        if (!menu.is_paused())
+        {
+            camera.update_distances(world);
+            camera.draw_camera_view(window);
+            world.draw(window);
+            camera.draw(window);
+
+            if (!camera.keyboard_control(d_elapsed_time, window))
+                menu.set_pause();
+        }
+        else
+            menu.draw(window);
         
-        camera.update_distances(world);
-        camera.draw_camera_view(window);
-        world.draw(window);
-        camera.draw(window);
-
-        camera.keyboard_control(d_elapsed_time, window);
-
         window.display();
     }
 

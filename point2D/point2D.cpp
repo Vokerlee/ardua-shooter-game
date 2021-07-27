@@ -63,12 +63,12 @@ double Point2D::abs()
     return sqrt(x * x + y * y);
 }
 
-int sign(double number)
+int ard::sign(double number)
 {
     return number >= 0 ? 1 : -1;
 }
 
-double cross(Point2D p1, Point2D p2)
+double ard::cross(Point2D p1, Point2D p2)
 {
     return p1.x * p2.y - p1.y * p2.x;
 }

@@ -41,6 +41,8 @@ namespace ard
         sf::Texture& load_texture();
 
         void draw(sf::RenderWindow& window) override;
+
+        static bool vector_crossing(std::pair<Point2D, Point2D> segment1, std::pair<Point2D, Point2D> segment2, Point2D& point);
     };
 };
 

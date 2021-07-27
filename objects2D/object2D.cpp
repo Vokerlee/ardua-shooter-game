@@ -83,3 +83,26 @@ void Object2D::draw(sf::RenderWindow& window)
 
     window.draw(polygon);
 }
+
+bool Object2D::vector_crossing(std::pair<Point2D, Point2D> vector1, std::pair<Point2D, Point2D> vector2, Point2D& point)
+{
+    Point2D cut1 = vector1.second - vector1.first;
+    Point2D cut2 = vector2.second - vector2.first;
+
+    double prod1 = cross(cut1, (vector2.first  - vector1.first));
+    double prod2 = cross(cut1, (vector2.second - vector1.first));
+
+    if (sign(prod1) == sign(prod2) || (prod1 == 0) || (prod2 == 0))
+        return false;
+
+    prod1 = cross(cut2, (vector1.first - vector2.first));
+    prod2 = cross(cut2, (vector1.second - vector2.first));
+
+    if (sign(prod1) == sign(prod2) || (prod1 == 0) || (prod2 == 0))
+        return false;
+
+    point.x = vector1.first.x + cut1.x * std::abs(prod1) / std::abs(prod2 - prod1);
+    point.y = vector1.first.y + cut1.y * std::abs(prod1) / std::abs(prod2 - prod1);
+
+    return true;
+}

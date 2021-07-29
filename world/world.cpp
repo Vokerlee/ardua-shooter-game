@@ -30,19 +30,34 @@ bool World::remove_object2D(std::string name)
     return map_objects_.erase(name) > 0;
 }
 
+void World::clear_objects()
+{
+    map_objects_.clear();
+}
+
 Object2D& World::operator[](std::string name)
 {
     return find_object2D(name);
 }
 
-double World::width()
+void World::set_length(double length)
 {
-    return width_;
+    length_ = length;
+}
+
+void World::set_width(double width)
+{
+    width_ = width;
 }
 
 double World::length()
 {
     return length_;
+}
+
+double World::width()
+{
+    return width_;
 }
 
 void World::draw(sf::RenderWindow& window)
@@ -92,4 +107,36 @@ sf::Texture& World::floor_texture()
     floor_texture_.setRepeated(true);
 
     return floor_texture_;
+}
+
+void World::set_sky_texture(std::string sky)
+{
+    s_sky_texture_ = sky;
+
+    if (sky_texture_.loadFromFile(s_sky_texture_))
+        sky_texture_loaded_ = true;
+
+    sky_texture_.setRepeated(true);
+}
+
+void World::set_floor_texture(std::string floor)
+{
+    s_floor_texture_ = floor;
+
+    if (floor_texture_.loadFromFile(s_floor_texture_))
+        floor_texture_loaded_ = true;
+
+    floor_texture_.setRepeated(true);
+}
+
+void World::set_sky_texture(sf::Texture sky)
+{
+    sky_texture_ = sky;
+    sky_texture_.setRepeated(true);
+}
+
+void World::set_floor_texture(sf::Texture floor)
+{
+    floor_texture_ = floor;
+    floor_texture_.setRepeated(true);
 }

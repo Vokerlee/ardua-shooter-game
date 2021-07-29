@@ -31,15 +31,25 @@ namespace ard
 
         Object2D& find_object2D(std::string name);
         bool remove_object2D(std::string name);
+        void clear_objects();
         Object2D& operator[](std::string name);
 
-        double width();
+        void set_length(double length);
+        void set_width(double width);
+        
         double length();
+        double width();
 
         void draw(sf::RenderWindow& window) override;
 
         sf::Texture& sky_texture();
         sf::Texture& floor_texture();
+
+        void set_sky_texture(std::string sky);
+        void set_floor_texture(std::string floor);
+
+        void set_sky_texture(sf::Texture sky);
+        void set_floor_texture(sf::Texture floor);
     };
 };
 

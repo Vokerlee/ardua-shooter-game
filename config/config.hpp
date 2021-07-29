@@ -15,13 +15,14 @@ namespace ard
 {
 // ABOUT-INFO: URL ADDRESS
 
+    const std::string GAME_NAME = "Ardua Shooter";
     const std::string ABOUT_INFO_URL_ADDR = "https://github.com/Vokerlee/ArduaShooter";
 
 // MATH VALUES
 
     const double PI = 3.1415926535897932384626433832795;
 
-// SIZES
+// SIZES & VELOCITIES
 
     const double SCALE = 50;  // pixels per unit
 
@@ -38,8 +39,14 @@ namespace ard
     
     // CAMERA
     const double COLLISION_DISTANCE = 0.1;
+    const double FIELD_OF_VIEW      = PI / 2;
+    const double DEPTH              = 15;
+
     const double RADIUS_CAMERA = SCALE / 10;
-    const int CONVEX_NUMBER = 100;
+    const int CONVEX_NUMBER    = 100;
+
+    const double WALK_SPEED = 1.5;
+    const double VIEW_SPEED = 0.01;
 
     // OBJECTS_2D
     const int CIRCLE_CONVEX_NUMBER = 30;

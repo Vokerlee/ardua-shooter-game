@@ -1,20 +1,9 @@
-#include "../objects2D/circle2D.hpp"
-#include "../objects2D/polygon2D.hpp"
-#include "../world/world.hpp"
-#include "../camera/camera.hpp"
-#include "../menu/menu.hpp"
+#include "../manager/manager.hpp"
 
 int main()
 {
-    // WINDOW
-    sf::RenderWindow window(sf::VideoMode(ard::SCREEN_PIX_WIDTH, ard::SCREEN_PIX_HEIGHT), "Ardua Shooter");
+    ard::Manager manager;
 
-    // WORLD
-    ard::World world; // field 6 x 6
-    ard::Camera camera(world, { 4, 3 });
-    ard::Menu menu(camera);
-
-    // OBJECTS
     ard::Polygon2D wall1({ {0, 0}, {0, .1}, {6, .1}, {6, 0} }, { 0, 0 });
     ard::Polygon2D wall2({ {0, 0}, {.1, 0}, {.1, 6}, {0, 6} }, { 0, 0 });
     ard::Polygon2D wall3({ {0, 0}, {0, .1}, {6, .1}, {6, 0} }, { 0, 6 });
@@ -31,61 +20,23 @@ int main()
     ard::Circle2D sphere3(.3, { 6, 6 });
     ard::Circle2D sphere4(.3, { 0, 6 });
 
-    world.add_object2D(wall1, "wall1");
-    world.add_object2D(wall2, "wall2");
-    world.add_object2D(wall3, "wall3");
-    world.add_object2D(wall4, "wall4");
+    manager.add_object2D(wall1, "wall1");
+    manager.add_object2D(wall2, "wall2");
+    manager.add_object2D(wall3, "wall3");
+    manager.add_object2D(wall4, "wall4");
 
-    world.add_object2D(object1, "object1");
-    world.add_object2D(object2, "object2");
-    world.add_object2D(object3, "object3");
-    world.add_object2D(object4, "object4");
-    world.add_object2D(object5, "object5");
+    manager.add_object2D(object1, "object1");
+    manager.add_object2D(object2, "object2");
+    manager.add_object2D(object3, "object3");
+    manager.add_object2D(object4, "object4");
+    manager.add_object2D(object5, "object5");
 
-    world.add_object2D(sphere1, "sphere1");
-    world.add_object2D(sphere2, "sphere2");
-    world.add_object2D(sphere3, "sphere3");
-    world.add_object2D(sphere4, "sphere4");
+    manager.add_object2D(sphere1, "sphere1");
+    manager.add_object2D(sphere2, "sphere2");
+    manager.add_object2D(sphere3, "sphere3");
+    manager.add_object2D(sphere4, "sphere4");
 
-    // RENDERING
-    auto previous_time = std::chrono::system_clock::now();
-    auto current_time  = std::chrono::system_clock::now();
-
-    while (window.isOpen())
-    {
-        current_time = std::chrono::system_clock::now();
-        std::chrono::duration <double> elapsed_time = current_time - previous_time;
-        previous_time = current_time;
-
-        double d_elapsed_time = elapsed_time.count();
-
-        std::string title = "Ardua Shooter (" + std::to_string((double) (1 / d_elapsed_time)) + " fps)";
-        window.setTitle(title);
-
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-
-        if (!menu.is_paused())
-        {
-            camera.update_distances(world);
-            camera.draw_camera_view(window);
-            world.draw(window);
-            camera.draw(window);
-
-            if (!camera.keyboard_control(d_elapsed_time, window))
-                menu.set_pause();
-        }
-        else
-            menu.draw(window);
-        
-        window.display();
-    }
+    manager.run();
 
     return 0;
 }

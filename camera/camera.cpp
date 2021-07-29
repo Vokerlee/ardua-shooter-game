@@ -17,7 +17,7 @@ void Camera::update_distances(World& world)
     distances_.clear();
     std::string obj_name;
 
-    for (int i = 0; i < 2 * PI / field_of_view_ * DISTANCES_SEGMENTS; i++)
+    for (int i = 0; i < 2 * field_of_view_ / PI * DISTANCES_SEGMENTS; i++)
     {
         // Left and right angles respectively to set direction
         double left  = direction_ - field_of_view_ / 2;

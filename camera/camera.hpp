@@ -53,7 +53,8 @@ namespace ard
         void shift_precise(Point2D vector);
 
     public:
-        explicit Camera(World& world, Point2D position, double direction = 0, double field_of_view = PI / 2, double depth = 14, double walk_speed = 1.5, double view_speed = 0.01);
+        explicit Camera(World& world, Point2D position, double direction = 0, double field_of_view = FIELD_OF_VIEW, 
+                        double depth = DEPTH, double walk_speed = WALK_SPEED, double view_speed = VIEW_SPEED);
 
         void update_distances(World& world);
 

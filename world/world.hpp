@@ -14,11 +14,11 @@ namespace ard
         double length_ = 0;
         double width_  = 0;
 
+        sf::Sprite sky_sprite_;
+        sf::Sprite floor_sprite_;
+
         sf::Texture sky_texture_;
         sf::Texture floor_texture_;
-
-        std::string s_sky_texture_;
-        std::string s_floor_texture_;
 
         bool sky_texture_loaded_   = false;
         bool floor_texture_loaded_ = false;
@@ -41,6 +41,9 @@ namespace ard
         double width()  const;
 
         void draw(sf::RenderWindow& window) override;
+
+        sf::Sprite& sky_sprite();
+        sf::Sprite& floor_sprite();
 
         sf::Texture& sky_texture();
         sf::Texture& floor_texture();

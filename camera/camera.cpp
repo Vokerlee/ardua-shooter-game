@@ -125,19 +125,10 @@ void Camera::draw_camera_view(sf::RenderWindow& window)
     // Sky and floor
     if (b_textures_)
     {
-        sf::Sprite sprite_sky;
-        sprite_sky.setTexture(world_.sky_texture());
-        sprite_sky.setTextureRect(sf::IntRect(direction_ * SCREEN_PIX_WIDTH / 2, 0, SCREEN_PIX_WIDTH, SCREEN_PIX_HEIGHT));
-        sprite_sky.setPosition(sf::Vector2f(0, 0));
+        world_.sky_sprite().setTextureRect(sf::IntRect(direction_ * SCREEN_PIX_WIDTH / 2, 0, SCREEN_PIX_WIDTH, SCREEN_PIX_HEIGHT));
 
-        sf::Sprite sprite_floor;
-        sprite_floor.setTexture(world_.floor_texture());
-        sprite_floor.setTextureRect(sf::IntRect(0, 0, SCREEN_PIX_WIDTH, SCREEN_PIX_HEIGHT));
-        sprite_floor.setPosition(sf::Vector2f(0, SCREEN_PIX_HEIGHT / 2));
-        sprite_floor.scale(1, 1. / 2);
-
-        window.draw(sprite_sky);
-        window.draw(sprite_floor);
+        window.draw(world_.sky_sprite());
+        window.draw(world_.floor_sprite());
     }
 
     // All other objects

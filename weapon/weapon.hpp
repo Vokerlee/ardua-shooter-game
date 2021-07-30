@@ -9,9 +9,9 @@ namespace ard
     class Weapon : virtual public Drawable
     {
         sf::Texture weapon_texture_;
-        sf::Sprite  weapon_sprite_;
-
         sf::Texture aim_texture_;
+
+        sf::Sprite  weapon_sprite_;
         sf::Sprite  aim_sprite_;   
 
         double speed_  = 1;

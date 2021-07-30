@@ -4,10 +4,11 @@ using namespace ard;
 
 World::World(double length, double width, std::string sky_texture, std::string floor_texture) :
     length_(length),
-    width_(width),
-    s_sky_texture_(sky_texture),
-    s_floor_texture_(floor_texture)
-{}
+    width_(width)
+{
+    set_sky_texture(sky_texture);
+    set_floor_texture(floor_texture);
+}
 
 bool World::add_object2D(Object2D& object, std::string name)
 {
@@ -83,60 +84,74 @@ void World::draw(sf::RenderWindow& window)
         object.second.draw(window);
 }
 
+sf::Sprite& World::sky_sprite()
+{
+    return sky_sprite_;
+}
+
+sf::Sprite& World::floor_sprite()
+{
+    return floor_sprite_;
+}
+
 sf::Texture& World::sky_texture()
 {
-    if (sky_texture_loaded_)
-        return sky_texture_;
-
-    if (sky_texture_.loadFromFile(s_sky_texture_))
-        sky_texture_loaded_ = true;
-
-    sky_texture_.setRepeated(true);
-
     return sky_texture_;
 }
 
 sf::Texture& World::floor_texture()
 {
-    if (floor_texture_loaded_)
-        return floor_texture_;
-
-    if (floor_texture_.loadFromFile(s_floor_texture_))
-        floor_texture_loaded_ = true;
-
-    floor_texture_.setRepeated(true);
-
     return floor_texture_;
 }
 
-void World::set_sky_texture(std::string sky)
+void World::set_sky_texture(std::string sky_texture)
 {
-    s_sky_texture_ = sky;
-
-    if (sky_texture_.loadFromFile(s_sky_texture_))
+    if (sky_texture_.loadFromFile(sky_texture))
         sky_texture_loaded_ = true;
 
     sky_texture_.setRepeated(true);
+
+    if (sky_texture_loaded_)
+    {
+        sky_sprite_.setTexture(sky_texture_);
+        sky_sprite_.setPosition(sf::Vector2f(0, 0));
+    }
 }
 
-void World::set_floor_texture(std::string floor)
+void World::set_floor_texture(std::string floor_texture)
 {
-    s_floor_texture_ = floor;
-
-    if (floor_texture_.loadFromFile(s_floor_texture_))
+    if (floor_texture_.loadFromFile(floor_texture))
         floor_texture_loaded_ = true;
 
     floor_texture_.setRepeated(true);
+
+    if (floor_texture_loaded_)
+    {
+        floor_sprite_.setTexture(floor_texture_);
+        floor_sprite_.setTextureRect(sf::IntRect(0, 0, SCREEN_PIX_WIDTH, SCREEN_PIX_HEIGHT));
+        floor_sprite_.setPosition(sf::Vector2f(0, SCREEN_PIX_HEIGHT / 2));
+        floor_sprite_.scale(1, 1. / 2);
+    }
 }
 
 void World::set_sky_texture(sf::Texture sky)
 {
     sky_texture_ = sky;
     sky_texture_.setRepeated(true);
+    sky_texture_loaded_ = true;
+
+    sky_sprite_.setTexture(sky_texture_);
+    sky_sprite_.setPosition(sf::Vector2f(0, 0));
 }
 
 void World::set_floor_texture(sf::Texture floor)
 {
     floor_texture_ = floor;
     floor_texture_.setRepeated(true);
+    floor_texture_loaded_ = true;
+
+    sky_sprite_.setTexture(floor_texture_);
+    sky_sprite_.setTextureRect(sf::IntRect(0, 0, SCREEN_PIX_WIDTH, SCREEN_PIX_HEIGHT));
+    sky_sprite_.setPosition(sf::Vector2f(0, SCREEN_PIX_HEIGHT / 2));
+    sky_sprite_.scale(1, 1. / 2);
 }

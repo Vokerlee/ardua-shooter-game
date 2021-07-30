@@ -27,7 +27,7 @@ namespace ard
         World(double length = WORLD_SIZE, double width = WORLD_SIZE, std::string sky_texture = SKY_TEXTURE, std::string floor_texture = FLOOR_TEXTURE);
 
         bool add_object2D(Object2D& object, std::string name);
-        const std::map<std::string, Object2D&>& objects();
+        const std::map<std::string, Object2D&>& objects() const;
 
         Object2D& find_object2D(std::string name);
         bool remove_object2D(std::string name);
@@ -37,8 +37,8 @@ namespace ard
         void set_length(double length);
         void set_width(double width);
         
-        double length();
-        double width();
+        double length() const;
+        double width()  const;
 
         void draw(sf::RenderWindow& window) override;
 

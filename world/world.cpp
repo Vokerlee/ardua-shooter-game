@@ -15,7 +15,7 @@ bool World::add_object2D(Object2D& object, std::string name)
     return map_objects_.insert({ name, object }).second;
 }
 
-const std::map<std::string, Object2D&>& World::objects()
+const std::map<std::string, Object2D&>& World::objects() const
 {
     return map_objects_;
 }
@@ -50,12 +50,12 @@ void World::set_width(double width)
     width_ = width;
 }
 
-double World::length()
+double World::length() const
 {
     return length_;
 }
 
-double World::width()
+double World::width() const
 {
     return width_;
 }

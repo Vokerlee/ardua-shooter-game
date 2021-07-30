@@ -5,6 +5,7 @@
 #include "../point2D/point2D.hpp"
 #include "../objects2D/object2D.hpp"
 #include "../world/world.hpp"
+#include "../weapon/weapon.hpp"
 
 namespace ard
 {
@@ -49,6 +50,9 @@ namespace ard
         bool b_textures_  = true;
         bool b_smooth_    = false;
 
+        std::vector<Weapon> weapons_;
+        int selected_weapon_ = 0;
+
         void check_collisions();
         void shift_precise(Point2D vector);
 
@@ -59,8 +63,10 @@ namespace ard
         void update_distances(World& world);
 
         void draw_camera_view(sf::RenderWindow& window);
+        void draw_view_field(sf::RenderWindow& window);
+        void draw_camera_position(sf::RenderWindow& window);
         void draw(sf::RenderWindow& window) override;
-
+        
         bool keyboard_control(double elapsed_time, sf::RenderWindow& window);
 
         bool is_smooth();
@@ -74,6 +80,9 @@ namespace ard
         void set_collision(bool value);
         void set_textures(bool value);
         void set_smooth(bool value);
+
+        void previous_weapon();
+        void next_weapon();
     };
 
     std::pair<double, double> height(double distance);

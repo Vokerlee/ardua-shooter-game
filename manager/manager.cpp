@@ -90,7 +90,7 @@ void Manager::run()
             camera_.update_distances(world_);
             camera_.draw_camera_view(window_);
             world_.draw(window_);
-            camera_.draw(window_);
+            camera_.draw_camera_position(window_);
 
             if (!camera_.keyboard_control(d_elapsed_time, window_))
                 menu_.set_pause();

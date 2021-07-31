@@ -6,10 +6,8 @@
     * There is a concept of reloading cartridges.
     * There is an effect of breathing and recoil (after shot).
 
- <center>
-    <table>
-        <img src="README data//v_0.0.3_1.png" alt="pistols" width="270"/>
-    </table>
+<center>
+    <img src="README data//v_0.0.3_1.png" alt="pistols" width="270"/>
 </center>
 
 * Menu is added:
@@ -40,7 +38,5 @@ All objects' (including sky and floor) 3D-rendering is added. Now there is a pos
 
 Now there is a possibility to add objects to minimap and render it.
 <center>
-    <table>
-        <img src="README data//v_0.0.1_1.png" alt="minimap" width="270"/>
-    </table>
+    <img src="README data//v_0.0.1_1.png" alt="minimap" width="270"/>
 </center>

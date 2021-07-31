@@ -6,9 +6,9 @@
     * There is a concept of reloading cartridges.
     * There is an effect of breathing and recoil (after shot).
 
-<center>
-    <img src="README data//v_0.0.3_1.png" alt="pistols" width="270"/>
-</center>
+<p align="center">
+    <img src="README data//v_0.0.3_1.png" alt="pistols" width="500"/>
+</p>
 
 * Menu is added:
     * `Play game` button is to turn on the game.
@@ -37,6 +37,6 @@ All objects' (including sky and floor) 3D-rendering is added. Now there is a pos
 ## Alpha version 0.0.1 (initial)
 
 Now there is a possibility to add objects to minimap and render it.
-<center>
+<p align="center">
     <img src="README data//v_0.0.1_1.png" alt="minimap" width="270"/>
-</center>
+</p>

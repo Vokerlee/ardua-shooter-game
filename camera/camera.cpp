@@ -10,14 +10,19 @@ Camera::Camera(World& world, Point2D position, double direction, double field_of
     depth_(depth),
     walk_speed_(walk_speed),
     view_speed_(view_speed)
-{}
+{
+    Weapon weapon;
+    weapons_.push_back(weapon);
+}
 
 void Camera::update_distances(World& world)
 {
-    distances_.clear();
+    collisions_.clear();
+    distances_ .clear();
+
     std::string obj_name;
 
-    for (int i = 0; i < 2 * PI / field_of_view_ * DISTANCES_SEGMENTS; i++)
+    for (int i = 0; i < 2 * field_of_view_ / PI * DISTANCES_SEGMENTS; i++)
     {
         // Left and right angles respectively to set direction
         double left  = direction_ - field_of_view_ / 2;
@@ -44,9 +49,9 @@ void Camera::update_distances(World& world)
             progress = 0;
 
             // The side of object
-            std::pair<Point2D, Point2D> object_side = { object.second.position() + object.second.nodes().front(), object.second.position() + object.second.nodes().back() };
+            std::pair<Point2D, Point2D> object_side = { object.second.position() + object.second.nodes().back(), object.second.position() + object.second.nodes().front() };
             
-            for (int k = 0; k < object.second.nodes().size(); k++)
+            for (size_t k = 0; k < object.second.nodes().size(); k++)
             {
                 if (vector_crossing(radius_vector, object_side, cross_point))
                 {
@@ -59,7 +64,7 @@ void Camera::update_distances(World& world)
                         // For collision detection
                         double collision_dist = (near_cross - position()).abs();
 
-                        if (COLLISION_DISTANCE >= collision_dist)
+                        if (COLLISION_AREA >= collision_dist)
                         {
                             collision_info new_collision;
 
@@ -81,70 +86,12 @@ void Camera::update_distances(World& world)
 
         distances_.push_back({ (position() - near_cross).abs(), len, obj_name });
     }
-
-    check_collisions();
-}
-
-void Camera::check_collisions()
-{
-    int n_ñollisions = collisions_.size();
-
-    if (b_collision_)
-    {
-        for (int i = n_ñollisions - 1; i >= 0; i--)
-        {
-            Point2D vector = collisions_[i].edge.first - collisions_[i].edge.second;
-            Point2D normal_vector = { -vector.y, vector.x };
-
-            Point2D shift_vector = normal_vector.normalize() * COLLISION_DISTANCE;
-            Point2D result_position = collisions_[i].collision_point + shift_vector;
-
-            set_position(result_position);
-            collisions_.pop_back();
-        }
-    }
-}
-
-void Camera::draw(sf::RenderWindow& window)
-{
-    if (distances_.size() == 0)
-        update_distances(world_);
-
-    // Player's position rendering (on minimap)
-    sf::CircleShape circle;
-    circle.setRadius(RADIUS_CAMERA);
-    circle.setOutlineColor(OUTLINE_CAMERA_COLOR);
-    circle.setFillColor(FILL_CAMERA_COLOR);
-    circle.setOutlineThickness(OUTLINE_CAMERA_THICKNESS);
-    circle.setPosition(x() * SCALE - RADIUS_CAMERA, y() * SCALE - RADIUS_CAMERA);
-
-    double left  = direction_ - field_of_view_ / 2;
-    double right = direction_ + field_of_view_ / 2;
-
-    sf::ConvexShape triangle;
-    triangle.setPointCount(CONVEX_NUMBER + 2);
-    triangle.setPoint(0, sf::Vector2f(0, 0));
-
-    for (int i = 0; i <= CONVEX_NUMBER; i++)
-    {
-        float x = distances_[int(i * DISTANCES_SEGMENTS / CONVEX_NUMBER)].distance * cos(left + (right - left) * i / CONVEX_NUMBER) * SCALE;
-        float y = distances_[int(i * DISTANCES_SEGMENTS / CONVEX_NUMBER)].distance * sin(left + (right - left) * i / CONVEX_NUMBER) * SCALE;
-        triangle.setPoint(i + 1, sf::Vector2f(x, y));
-    }
-
-    triangle.setOutlineColor(OUTLINE_CAMERA_COLOR);
-    triangle.setFillColor(FILED_OF_VEW_COLOR);
-    triangle.setOutlineThickness(OUTLINE_CAMERA_THICKNESS);
-    triangle.setPosition(x() * SCALE, y() * SCALE);
-
-    window.draw(triangle);
-    window.draw(circle);
 }
 
 std::pair<double, double> ard::height(double distance)
 {
     std::pair<double, double> h = { 0, 0 };
-    h.first  = (1 - 1 / distance) * SCREEN_PIX_HEIGHT / 2;
+    h.first = (1 - 1 / distance) * SCREEN_PIX_HEIGHT / 2;
     h.second = (1 + 1 / distance) * SCREEN_PIX_HEIGHT / 2;
 
     return h;
@@ -158,19 +105,10 @@ void Camera::draw_camera_view(sf::RenderWindow& window)
     // Sky and floor
     if (b_textures_)
     {
-        sf::Sprite sprite_sky;
-        sprite_sky.setTexture(world_.sky_texture());
-        sprite_sky.setTextureRect(sf::IntRect(direction_ * SCREEN_PIX_WIDTH / 2, 0, SCREEN_PIX_WIDTH, SCREEN_PIX_HEIGHT));
-        sprite_sky.setPosition(sf::Vector2f(0, 0));
+        world_.sky_sprite().setTextureRect(sf::IntRect(direction_ * SCREEN_PIX_WIDTH / 2, 0, SCREEN_PIX_WIDTH, SCREEN_PIX_HEIGHT));
 
-        sf::Sprite sprite_floor;
-        sprite_floor.setTexture(world_.floor_texture());
-        sprite_floor.setTextureRect(sf::IntRect(0, 0, SCREEN_PIX_WIDTH, SCREEN_PIX_HEIGHT));
-        sprite_floor.setPosition(sf::Vector2f(0, SCREEN_PIX_HEIGHT / 2));
-        sprite_floor.scale(1, 1. / 2);
- 
-        window.draw(sprite_sky);
-        window.draw(sprite_floor);
+        window.draw(world_.sky_sprite());
+        window.draw(world_.floor_sprite());
     }
 
     // All other objects
@@ -210,7 +148,7 @@ void Camera::draw_camera_view(sf::RenderWindow& window)
         if (abs(distances_[i].distance - depth_) > 0.001)
             window.draw(polygon);
 
-        double scaleFactor = double(h2 - h1) / SCREEN_PIX_HEIGHT;
+        double scaleFactor = (double(h2) - double(h1)) / SCREEN_PIX_HEIGHT;
         sf::Sprite sprite;
 
         if (distances_[i].object != "" && b_textures_)
@@ -223,6 +161,54 @@ void Camera::draw_camera_view(sf::RenderWindow& window)
             window.draw(sprite);
         }
     }
+
+    weapons_[selected_weapon_].draw(window);
+}
+
+void Camera::draw_view_field(sf::RenderWindow& window)
+{
+    double left  = direction_ - field_of_view_ / 2;
+    double right = direction_ + field_of_view_ / 2;
+
+    sf::ConvexShape triangle;
+    triangle.setPointCount(CONVEX_NUMBER + 2);
+    triangle.setPoint(0, sf::Vector2f(0, 0));
+
+    for (int i = 0; i <= CONVEX_NUMBER; i++)
+    {
+        float x = distances_[int(i * DISTANCES_SEGMENTS / CONVEX_NUMBER)].distance * cos(left + (right - left) * i / CONVEX_NUMBER) * SCALE;
+        float y = distances_[int(i * DISTANCES_SEGMENTS / CONVEX_NUMBER)].distance * sin(left + (right - left) * i / CONVEX_NUMBER) * SCALE;
+        triangle.setPoint(i + 1, sf::Vector2f(x, y));
+    }
+
+    triangle.setOutlineColor(OUTLINE_CAMERA_COLOR);
+    triangle.setFillColor(FILED_OF_VEW_COLOR);
+    triangle.setOutlineThickness(OUTLINE_CAMERA_THICKNESS);
+    triangle.setPosition(x() * SCALE, y() * SCALE);
+
+    window.draw(triangle);
+}
+
+void Camera::draw_camera_position(sf::RenderWindow& window)
+{
+    // Player's position rendering (on minimap)
+    sf::CircleShape circle;
+    circle.setRadius(RADIUS_CAMERA);
+    circle.setOutlineColor(OUTLINE_CAMERA_COLOR);
+    circle.setFillColor(FILL_CAMERA_COLOR);
+    circle.setOutlineThickness(OUTLINE_CAMERA_THICKNESS);
+    circle.setPosition(x() * SCALE - RADIUS_CAMERA, y() * SCALE - RADIUS_CAMERA);
+
+    window.draw(circle);
+}
+
+void Camera::draw(sf::RenderWindow& window)
+{
+    if (distances_.size() == 0)
+        update_distances(world_);
+
+    draw_camera_position(window);
+    draw_view_field(window);
 }
 
 bool Camera::keyboard_control(double elapsed_time, sf::RenderWindow& window)
@@ -262,10 +248,10 @@ bool Camera::keyboard_control(double elapsed_time, sf::RenderWindow& window)
         return false;
     }
 
-    // Mouse
+    // Fire from weapon
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        // for the future
+        weapons_[selected_weapon_].fire();
     }
 
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
@@ -284,6 +270,30 @@ bool Camera::keyboard_control(double elapsed_time, sf::RenderWindow& window)
 
 void Camera::shift_precise(Point2D vector)
 {
+    if (!b_collision_) 
+    {
+        shift(vector);
+        return;
+    }
+
+    for (auto collision : collisions_)
+    {
+        Point2D edge_vector = collision.edge.second - collision.edge.first;
+        Point2D normal      = { edge_vector.y, -edge_vector.x };
+
+        normal = normal.normalize();
+        double scalar = vector.x * normal.x + vector.y * normal.y;
+
+        if (scalar < 0)
+        {
+            if (collision.distance - abs(scalar) < COLLISION_DISTANCE)
+            {
+                vector.x -= normal.x * scalar;
+                vector.y -= normal.y * scalar;
+            }
+        }
+    }
+
     shift(vector);
 }
 
@@ -302,11 +312,6 @@ bool Camera::is_textures()
     return b_textures_;
 }
 
-void Camera::switch_smooth()
-{
-   b_smooth_ = b_smooth_;
-}
-
 void Camera::switch_collision()
 {
     b_collision_ = !b_collision_;
@@ -315,4 +320,40 @@ void Camera::switch_collision()
 void Camera::switch_textures()
 {
     b_textures_ = !b_textures_;
+}
+
+void Camera::switch_smooth()
+{
+   b_smooth_ = !b_smooth_;
+}
+
+void Camera::set_collision(bool value)
+{
+    b_collision_ = value;
+}
+
+void Camera::set_textures(bool value)
+{
+    b_textures_ = value;
+}
+
+void Camera::set_smooth(bool value)
+{
+    b_smooth_ = value;
+}
+
+void Camera::previous_weapon()
+{
+    if (selected_weapon_ > 0)
+        selected_weapon_--;
+    else
+        selected_weapon_ = weapons_.size() - 1;
+}
+
+void Camera::next_weapon()
+{
+    if (selected_weapon_ < weapons_.size() - 1)
+        selected_weapon_++;
+    else
+        selected_weapon_ = 0;
 }

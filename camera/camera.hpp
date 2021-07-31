@@ -5,16 +5,10 @@
 #include "../point2D/point2D.hpp"
 #include "../objects2D/object2D.hpp"
 #include "../world/world.hpp"
+#include "../weapon/weapon.hpp"
 
 namespace ard
 {
-    struct RGB
-    {
-        int RED   = 255;
-        int GREEN = 255;
-        int BLUE  = 255;
-    };
-
     struct texture_params
     {
         double distance;
@@ -45,30 +39,42 @@ namespace ard
 
         sf::Vector2i local_mouse_position_;
 
-        bool b_collision_ = false;
+        bool b_collision_ = true;
         bool b_textures_  = true;
         bool b_smooth_    = false;
 
-        void check_collisions();
+        std::vector<Weapon> weapons_;
+        int selected_weapon_ = 0;
+
         void shift_precise(Point2D vector);
 
     public:
-        explicit Camera(World& world, Point2D position, double direction = 0, double field_of_view = PI / 2, double depth = 14, double walk_speed = 1.5, double view_speed = 0.01);
+        explicit Camera(World& world, Point2D position, double direction = 0, double field_of_view = FIELD_OF_VIEW, 
+                        double depth = DEPTH, double walk_speed = WALK_SPEED, double view_speed = VIEW_SPEED);
 
         void update_distances(World& world);
 
         void draw_camera_view(sf::RenderWindow& window);
+        void draw_view_field(sf::RenderWindow& window);
+        void draw_camera_position(sf::RenderWindow& window);
         void draw(sf::RenderWindow& window) override;
-
+        
         bool keyboard_control(double elapsed_time, sf::RenderWindow& window);
 
         bool is_smooth();
         bool is_collision();
         bool is_textures();
 
-        void switch_smooth();
         void switch_collision();
         void switch_textures();
+        void switch_smooth();
+
+        void set_collision(bool value);
+        void set_textures(bool value);
+        void set_smooth(bool value);
+
+        void previous_weapon();
+        void next_weapon();
     };
 
     std::pair<double, double> height(double distance);

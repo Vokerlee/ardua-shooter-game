@@ -87,6 +87,8 @@ void Manager::run()
 
         if (!menu_.is_paused())
         {
+            window_.setMouseCursorVisible(false);
+
             camera_.update_distances(world_);
             camera_.draw_camera_view(window_);
             world_.draw(window_);
@@ -96,7 +98,10 @@ void Manager::run()
                 menu_.set_pause();
         }
         else
+        {
+            window_.setMouseCursorVisible(true);
             menu_.draw(window_);
+        }
         
         window_.display();
     }

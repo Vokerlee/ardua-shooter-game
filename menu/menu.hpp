@@ -21,6 +21,8 @@ namespace ard
         
         std::string name;
 
+        double press_time_;
+
         bool selected = false;
         bool pressed  = false;
 

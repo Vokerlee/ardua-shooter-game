@@ -39,6 +39,7 @@ namespace ard
     
     // CAMERA
     const double COLLISION_DISTANCE = 0.1;
+    const double COLLISION_AREA     = 1;
     const double FIELD_OF_VIEW      = PI / 2;
     const double DEPTH              = 11;
 
@@ -52,39 +53,44 @@ namespace ard
     const int CIRCLE_CONVEX_NUMBER  = 30;
     const int DISTANCES_SEGMENTS    = SCREEN_WIDTH * SCALE;
 
-    // WEAPONS
-    const int BULLET_AMOUNT_DEFAULT = 30;
+// WEAPONS
+
+    const int BULLET_AMOUNT_DEFAULT = 1111111;
+
+    const double PISTOLS_FREQUENCY  = 2.5;
 
 // TEXTURES 
 
     // OBJECTS
-    const std::string WALL_TEXTURE             = "textures/wall_tree.jpg";
+    const std::string WALL_TEXTURE               = "textures/wall_tree.jpg";
 
-    const std::string SKY_TEXTURE              = "textures/sky.jpeg";
-    const std::string FLOOR_TEXTURE            = "textures/floor.jpg";
+    const std::string SKY_TEXTURE                = "textures/sky.jpeg";
+    const std::string FLOOR_TEXTURE              = "textures/floor.jpg";
 
     // BUTTONS
-    const std::string PLAYGAME_PRESSED_TEXTURE = "textures/buttons/play_game_selected.jpg";
-    const std::string SETTINGS_PRESSED_TEXTURE = "textures/buttons/settings_selected.jpg";
-    const std::string ABOUT_PRESSED_TEXTURE    = "textures/buttons/about_selected.jpg";
-    const std::string QUIT_PRESSED_TEXTURE     = "textures/buttons/quit_selected.jpg";
+    const std::string PLAYGAME_PRESSED_TEXTURE   = "textures/buttons/play_game_selected.jpg";
+    const std::string SETTINGS_PRESSED_TEXTURE   = "textures/buttons/settings_selected.jpg";
+    const std::string ABOUT_PRESSED_TEXTURE      = "textures/buttons/about_selected.jpg";
+    const std::string QUIT_PRESSED_TEXTURE       = "textures/buttons/quit_selected.jpg";
 
-    const std::string PLAYGAME_TEXTURE         = "textures/buttons/play_game.jpg";
-    const std::string SETTINGS_TEXTURE         = "textures/buttons/settings.jpg";
-    const std::string ABOUT_TEXTURE            = "textures/buttons/about.jpg";
-    const std::string QUIT_TEXTURE             = "textures/buttons/quit.jpg";
+    const std::string PLAYGAME_TEXTURE           = "textures/buttons/play_game.jpg";
+    const std::string SETTINGS_TEXTURE           = "textures/buttons/settings.jpg";
+    const std::string ABOUT_TEXTURE              = "textures/buttons/about.jpg";
+    const std::string QUIT_TEXTURE               = "textures/buttons/quit.jpg";
 
-    const std::string TEXTURING_SELECT         = "textures/buttons/texturing.jpg";
-    const std::string SMOOTHING_SELECT         = "textures/buttons/smoothing.jpg";
-    const std::string COLLISION_SELECT         = "textures/buttons/collision.jpg";
+    const std::string TEXTURING_SELECT           = "textures/buttons/texturing.jpg";
+    const std::string SMOOTHING_SELECT           = "textures/buttons/smoothing.jpg";
+    const std::string COLLISION_SELECT           = "textures/buttons/collision.jpg";
 
-    const std::string TEXTURING_SELECT_S       = "textures/buttons/texturing_selected.jpg";
-    const std::string SMOOTHING_SELECT_S       = "textures/buttons/smoothing_selected.jpg";
-    const std::string COLLISION_SELECT_S       = "textures/buttons/collision_selected.jpg";
+    const std::string TEXTURING_SELECT_S         = "textures/buttons/texturing_selected.jpg";
+    const std::string SMOOTHING_SELECT_S         = "textures/buttons/smoothing_selected.jpg";
+    const std::string COLLISION_SELECT_S         = "textures/buttons/collision_selected.jpg";
 
     // WEAPONS
-    const std::string PISTOLS_TEXTURE          = "textures/weapons/pistols.png"; // "pistols"
-    const std::string AIM_TEXTURE              = "textures/weapons/aim.png";
+    const std::string PISTOLS_TEXTURE            = "textures/weapons/pistols.png"; // "pistols"
+    const std::string FIRE_PISTOLS_TEXTURE_RIGHT = "textures/weapons/fire_pistols_right.png";
+    const std::string FIRE_PISTOLS_TEXTURE_LEFT  = "textures/weapons/fire_pistols_left.png";
+    const std::string AIM_TEXTURE                = "textures/weapons/aim.png";
 
 // COLOURS
 

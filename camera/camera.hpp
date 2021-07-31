@@ -9,13 +9,6 @@
 
 namespace ard
 {
-    struct RGB
-    {
-        int RED   = 255;
-        int GREEN = 255;
-        int BLUE  = 255;
-    };
-
     struct texture_params
     {
         double distance;
@@ -46,14 +39,13 @@ namespace ard
 
         sf::Vector2i local_mouse_position_;
 
-        bool b_collision_ = false;
+        bool b_collision_ = true;
         bool b_textures_  = true;
         bool b_smooth_    = false;
 
         std::vector<Weapon> weapons_;
         int selected_weapon_ = 0;
 
-        void check_collisions();
         void shift_precise(Point2D vector);
 
     public:

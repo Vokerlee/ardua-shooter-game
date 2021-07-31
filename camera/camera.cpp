@@ -17,7 +17,9 @@ Camera::Camera(World& world, Point2D position, double direction, double field_of
 
 void Camera::update_distances(World& world)
 {
-    distances_.clear();
+    collisions_.clear();
+    distances_ .clear();
+
     std::string obj_name;
 
     for (int i = 0; i < 2 * field_of_view_ / PI * DISTANCES_SEGMENTS; i++)
@@ -47,7 +49,7 @@ void Camera::update_distances(World& world)
             progress = 0;
 
             // The side of object
-            std::pair<Point2D, Point2D> object_side = { object.second.position() + object.second.nodes().front(), object.second.position() + object.second.nodes().back() };
+            std::pair<Point2D, Point2D> object_side = { object.second.position() + object.second.nodes().back(), object.second.position() + object.second.nodes().front() };
             
             for (int k = 0; k < object.second.nodes().size(); k++)
             {
@@ -62,7 +64,7 @@ void Camera::update_distances(World& world)
                         // For collision detection
                         double collision_dist = (near_cross - position()).abs();
 
-                        if (COLLISION_DISTANCE >= collision_dist)
+                        if (COLLISION_AREA >= collision_dist)
                         {
                             collision_info new_collision;
 
@@ -83,28 +85,6 @@ void Camera::update_distances(World& world)
         }
 
         distances_.push_back({ (position() - near_cross).abs(), len, obj_name });
-    }
-
-    check_collisions();
-}
-
-void Camera::check_collisions()
-{
-    int n_ñollisions = collisions_.size();
-
-    if (b_collision_)
-    {
-        for (int i = n_ñollisions - 1; i >= 0; i--)
-        {
-            Point2D vector = collisions_[i].edge.first - collisions_[i].edge.second;
-            Point2D normal_vector = { -vector.y, vector.x };
-
-            Point2D shift_vector = normal_vector.normalize() * COLLISION_DISTANCE;
-            Point2D result_position = collisions_[i].collision_point + shift_vector;
-
-            set_position(result_position);
-            collisions_.pop_back();
-        }
     }
 }
 
@@ -268,10 +248,10 @@ bool Camera::keyboard_control(double elapsed_time, sf::RenderWindow& window)
         return false;
     }
 
-    // Mouse
+    // Fire from weapon
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        // for the future
+        weapons_[selected_weapon_].fire();
     }
 
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
@@ -290,6 +270,30 @@ bool Camera::keyboard_control(double elapsed_time, sf::RenderWindow& window)
 
 void Camera::shift_precise(Point2D vector)
 {
+    if (!b_collision_) 
+    {
+        shift(vector);
+        return;
+    }
+
+    for (auto collision : collisions_)
+    {
+        Point2D edge_vector = collision.edge.second - collision.edge.first;
+        Point2D normal      = { edge_vector.y, -edge_vector.x };
+
+        normal = normal.normalize();
+        double scalar = vector.x * normal.x + vector.y * normal.y;
+
+        if (scalar < 0)
+        {
+            if (collision.distance - abs(scalar) < COLLISION_DISTANCE)
+            {
+                vector.x -= normal.x * scalar;
+                vector.y -= normal.y * scalar;
+            }
+        }
+    }
+
     shift(vector);
 }
 

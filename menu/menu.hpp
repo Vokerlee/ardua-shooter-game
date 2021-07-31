@@ -43,6 +43,8 @@ namespace ard
         bool b_settings_  = false;
         bool b_about_     = false;
 
+        bool b_pressed_   = false;
+
         void settings(sf::RenderWindow& window);
         void about(sf::RenderWindow& window);
 

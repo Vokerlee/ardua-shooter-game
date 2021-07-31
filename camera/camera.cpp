@@ -51,7 +51,7 @@ void Camera::update_distances(World& world)
             // The side of object
             std::pair<Point2D, Point2D> object_side = { object.second.position() + object.second.nodes().back(), object.second.position() + object.second.nodes().front() };
             
-            for (int k = 0; k < object.second.nodes().size(); k++)
+            for (size_t k = 0; k < object.second.nodes().size(); k++)
             {
                 if (vector_crossing(radius_vector, object_side, cross_point))
                 {
@@ -148,7 +148,7 @@ void Camera::draw_camera_view(sf::RenderWindow& window)
         if (abs(distances_[i].distance - depth_) > 0.001)
             window.draw(polygon);
 
-        double scaleFactor = double(h2 - h1) / SCREEN_PIX_HEIGHT;
+        double scaleFactor = (double(h2) - double(h1)) / SCREEN_PIX_HEIGHT;
         sf::Sprite sprite;
 
         if (distances_[i].object != "" && b_textures_)

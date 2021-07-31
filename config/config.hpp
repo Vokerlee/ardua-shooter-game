@@ -38,7 +38,7 @@ namespace ard
     const double WORLD_SIZE         = 6;  // size of the world in SCALE (length and width)
     
     // CAMERA
-    const double COLLISION_DISTANCE = 0.1;
+    const double COLLISION_DISTANCE = 0.16;
     const double COLLISION_AREA     = 1;
     const double FIELD_OF_VIEW      = PI / 2;
     const double DEPTH              = 11;
@@ -51,7 +51,7 @@ namespace ard
 
     // OBJECTS_2D
     const int CIRCLE_CONVEX_NUMBER  = 30;
-    const int DISTANCES_SEGMENTS    = SCREEN_WIDTH * SCALE;
+    const int DISTANCES_SEGMENTS    = int(SCREEN_WIDTH * SCALE);
 
 // WEAPONS
 

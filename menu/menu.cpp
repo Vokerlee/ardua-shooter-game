@@ -4,9 +4,8 @@ using namespace ard;
 
 void Button::select()
 {
-    if (!selected && !pressed)
+    if (!selected)
     {
-        button.setTexture(pressed_texture);
         selected = true;
         button.scale({ 1.01, 1.01 });
     }
@@ -14,9 +13,8 @@ void Button::select()
 
 void Button::unselect()
 {
-    if (selected && !pressed)
+    if (selected)
     {
-        button.setTexture(texture);
         selected = false;
         button.scale({ 1 / 1.01, 1 / 1.01 });
     }
@@ -69,9 +67,7 @@ Menu::Menu(Camera& camera) :
     buttons_[6].texture.loadFromFile(COLLISION_SELECT);
     buttons_[6].pressed_texture.loadFromFile(COLLISION_SELECT_S);
 
-    buttons_[4].press();
-
-    for (int i = 0; i < buttons_.size(); i++)
+    for (size_t i = 0; i < buttons_.size(); i++)
     {
         buttons_[i].button.setTexture(buttons_[i].texture);
 
@@ -80,6 +76,13 @@ Menu::Menu(Camera& camera) :
         else
             buttons_[i].button.setPosition(SCREEN_PIX_WIDTH / 2 - 3.4 * SCALE, (1 + 3 * (i - 4)) * SCALE);
     }
+
+    if (camera_.is_textures())
+        buttons_[4].press();
+    if (camera_.is_smooth())
+        buttons_[5].press();
+    if (camera_.is_collision())
+        buttons_[6].press();
 }
 
 void Menu::draw(sf::RenderWindow& window) 
@@ -97,28 +100,40 @@ void Menu::draw(sf::RenderWindow& window)
 
     window.draw(back);
 
-    for (int i = 0; i < buttons_.size(); i++)
+    float mouseX = sf::Mouse::getPosition(window).x * window.getView().getSize().x / window.getSize().x;
+    float mouseY = sf::Mouse::getPosition(window).y * window.getView().getSize().y / window.getSize().y;
+
+    bool b_pressing = sf::Mouse::isButtonPressed(sf::Mouse::Left) && !b_pressed_;
+    b_pressed_      = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+
+    for (size_t i = 0; i < buttons_.size(); i++)
     {
-        if (buttons_[i].button.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
+        if (buttons_[i].button.getGlobalBounds().contains(mouseX, mouseY))
         {
             buttons_[i].select();
 
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            if (window.hasFocus() && b_pressing)
             {
                 buttons_[i].unselect();
 
                 if (!b_settings_)
                 {
                     if (buttons_[i].name == "play_game")
-                        b_pause_ = false;
-
-                    if (buttons_[i].name == "settings")
+                    {
+                        b_pause_   = false;
+                        b_pressing = false;
+                    }
+                    else if (buttons_[i].name == "settings")
+                    {
                         b_settings_ = true;
-
-                    if (buttons_[i].name == "about")
-                        b_about_ = true;
-
-                    if (buttons_[i].name == "quit")
+                        b_pressing  = false;
+                    }
+                    else if (buttons_[i].name == "about")
+                    {
+                        b_about_   = true;
+                        b_pressing = false;
+                    }
+                    else if (buttons_[i].name == "quit")
                         window.close();
                 }
                 else
@@ -127,18 +142,19 @@ void Menu::draw(sf::RenderWindow& window)
                     {
                         buttons_[i].press();
                         camera_.set_textures(buttons_[i].pressed);
+                        b_pressing = false;
                     }
-
-                    if (buttons_[i].name == "smoothing")
+                    else if (buttons_[i].name == "smoothing")
                     {
                         buttons_[i].press();
                         camera_.set_smooth(buttons_[i].pressed);
+                        b_pressing = false;
                     }
-
-                    if (buttons_[i].name == "collision")
+                    else if (buttons_[i].name == "collision")
                     {
                         buttons_[i].press();
                         camera_.set_collision(buttons_[i].pressed);
+                        b_pressing = false;
                     }
                 }
             }
@@ -167,9 +183,10 @@ void Menu::about(sf::RenderWindow& window)
 
 void Menu::settings(sf::RenderWindow& window)
 {
-    if (!b_settings_) return;
+    if (!b_settings_)
+        return;
 
-    for (int i = 4; i < buttons_.size(); i++)
+    for (size_t i = 4; i < buttons_.size(); i++)
         window.draw(buttons_[i].button);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))

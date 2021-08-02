@@ -7,7 +7,7 @@
     * There is an effect of breathing and recoil (after shot).
 
 <p align="center">
-    <img src="README data//v_0.0.3_1.png" alt="pistols" width="500"/>
+    <img src="data//v_0.0.3_1.png" alt="pistols" width="500"/>
 </p>
 
 * Menu is added:
@@ -18,8 +18,8 @@
     * To back to menu from game press `Escape` button.
 <table>
     <tr>
-        <td> <img src="README data//v_0.0.3_2.png" alt="menu" width="450"/> </td>
-        <td> <img src="README data//v_0.0.3_3.png" alt="settings" width="450"/> </td>
+        <td> <img src="data//v_0.0.3_2.png" alt="menu" width="450"/> </td>
+        <td> <img src="data//v_0.0.3_3.png" alt="settings" width="450"/> </td>
     </tr>
 </table>
 
@@ -29,8 +29,8 @@ All objects' (including sky and floor) 3D-rendering is added. Now there is a pos
 
 <table>
     <tr>
-        <td> <img src="README data//v_0.0.2_1.png" alt="map rendering 1" width="450"/> </td>
-        <td> <img src="README data//v_0.0.2_2.png" alt="map rendering 2" width="450"/> </td>
+        <td> <img src="data//v_0.0.2_1.png" alt="map rendering 1" width="450"/> </td>
+        <td> <img src="data//v_0.0.2_2.png" alt="map rendering 2" width="450"/> </td>
     </tr>
 </table>
 
@@ -38,5 +38,5 @@ All objects' (including sky and floor) 3D-rendering is added. Now there is a pos
 
 Now there is a possibility to add objects to minimap and render it.
 <p align="center">
-    <img src="README data//v_0.0.1_1.png" alt="minimap" width="270"/>
+    <img src="data//v_0.0.1_1.png" alt="minimap" width="270"/>
 </p>

@@ -27,7 +27,7 @@ void Manager::set_world_size(double size)
 
 void Manager::set_window_size(double length, double height)
 {
-    window_.setSize({ unsigned int(length), unsigned int(height) });
+    window_.setSize({ (unsigned int)length, (unsigned int)height });
 }
 
 void Manager::set_sky_texture(std::string sky)
@@ -102,7 +102,7 @@ void Manager::run()
             window_.setMouseCursorVisible(true);
             menu_.draw(window_);
         }
-        
+
         window_.display();
     }
 }

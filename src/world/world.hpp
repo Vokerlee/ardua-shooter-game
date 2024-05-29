@@ -2,7 +2,7 @@
 #define WORLD_H
 
 #include <map>
-#include "../objects2D/object2D.hpp"
+#include "objects2D/object2D.hpp"
 
 namespace ard
 {

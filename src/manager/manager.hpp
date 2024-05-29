@@ -1,12 +1,12 @@
 #ifndef MANAGER_H
 #define MANAGER_H
 
-#include "../objects2D/circle2D.hpp"
-#include "../objects2D/polygon2D.hpp"
-#include "../world/world.hpp"
-#include "../camera/camera.hpp"
-#include "../menu/menu.hpp"
-#include "../config/config.hpp"
+#include "objects2D/circle2D.hpp"
+#include "objects2D/polygon2D.hpp"
+#include "world/world.hpp"
+#include "camera/camera.hpp"
+#include "menu/menu.hpp"
+#include "config/config.hpp"
 
 namespace ard
 {

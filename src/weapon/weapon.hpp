@@ -1,8 +1,8 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
-#include "../config/config.hpp"
-#include "../config/drawable.hpp"
+#include "config/config.hpp"
+#include "config/drawable.hpp"
 
 namespace ard
 {

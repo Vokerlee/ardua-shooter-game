@@ -1,7 +1,7 @@
 #ifndef POINT_2D_H
 #define POINT_2D_H
 
-#include "../config/config.hpp"
+#include "config/config.hpp"
 
 namespace ard
 {

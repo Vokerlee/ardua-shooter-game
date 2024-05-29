@@ -1,7 +1,7 @@
 #ifndef DRAWABLE_H
 #define DRAWABLE_H
 
-#include "../config/config.hpp"
+#include "config/config.hpp"
 
 namespace ard
 {

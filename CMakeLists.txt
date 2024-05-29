@@ -28,8 +28,11 @@ target_link_libraries(ardua
     sfml-graphics sfml-audio
 )
 target_include_directories(ardua PUBLIC
-    textures
+    src textures
 )
+add_custom_command(TARGET ardua PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                   ${CMAKE_SOURCE_DIR}/textures/ ${CMAKE_CURRENT_BINARY_DIR}/textures/)
 
 # COMPILATION OPTIONS
 set_target_properties(ardua PROPERTIES

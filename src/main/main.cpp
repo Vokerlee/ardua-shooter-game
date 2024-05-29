@@ -1,4 +1,4 @@
-#include "../manager/manager.hpp"
+#include "manager/manager.hpp"
 
 int main()
 {

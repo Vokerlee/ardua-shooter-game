@@ -1,9 +1,9 @@
 #ifndef OBJ_2D_H
 #define OBJ_2D_H
 
-#include "../config/config.hpp"
-#include "../config/drawable.hpp"
-#include "../point2D/point2D.hpp"
+#include "config/config.hpp"
+#include "config/drawable.hpp"
+#include "point2D/point2D.hpp"
 
 namespace ard
 {
@@ -23,7 +23,8 @@ namespace ard
         bool texture_loaded_ = false;
 
     public:
-        Object2D(Point2D position = { 0, 0 }, std::vector<Point2D> points = {}, std::string texture = WALL_TEXTURE, Point2D velocity = { 0, 0 });
+        Object2D(Point2D position = { 0, 0 }, std::vector<Point2D> points = {}, 
+                 std::string texture = WALL_TEXTURE, Point2D velocity = { 0, 0 });
 
         double x();
         double y();
@@ -42,7 +43,8 @@ namespace ard
 
         void draw(sf::RenderWindow& window) override;
 
-        static bool vector_crossing(std::pair<Point2D, Point2D> segment1, std::pair<Point2D, Point2D> segment2, Point2D& point);
+        static bool vector_crossing(std::pair<Point2D, Point2D> segment1, 
+                                    std::pair<Point2D, Point2D> segment2, Point2D& point);
     };
 };
 

@@ -1,11 +1,11 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "../config/config.hpp"
-#include "../point2D/point2D.hpp"
-#include "../objects2D/object2D.hpp"
-#include "../world/world.hpp"
-#include "../weapon/weapon.hpp"
+#include "config/config.hpp"
+#include "point2D/point2D.hpp"
+#include "objects2D/object2D.hpp"
+#include "world/world.hpp"
+#include "weapon/weapon.hpp"
 
 namespace ard
 {

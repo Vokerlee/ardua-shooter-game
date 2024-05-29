@@ -5,8 +5,8 @@
 #include <iostream>
 #include <chrono>
 
-#include "../config/config.hpp"
-#include "../camera/camera.hpp"
+#include "config/config.hpp"
+#include "camera/camera.hpp"
 
 namespace ard
 {

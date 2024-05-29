@@ -84,7 +84,8 @@ void Object2D::draw(sf::RenderWindow& window)
     window.draw(polygon);
 }
 
-bool Object2D::vector_crossing(std::pair<Point2D, Point2D> vector1, std::pair<Point2D, Point2D> vector2, Point2D& point)
+bool Object2D::vector_crossing(std::pair<Point2D, Point2D> vector1, 
+                               std::pair<Point2D, Point2D> vector2, Point2D& point)
 {
     Point2D cut1 = vector1.second - vector1.first;
     Point2D cut2 = vector2.second - vector2.first;

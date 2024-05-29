@@ -2,7 +2,7 @@
 #define WORLD_H
 
 #include <map>
-#include "../objects2D/object2D.hpp"
+#include "objects2D/object2D.hpp"
 
 namespace ard
 {
@@ -24,7 +24,8 @@ namespace ard
         bool floor_texture_loaded_ = false;
 
     public:
-        World(double length = WORLD_SIZE, double width = WORLD_SIZE, std::string sky_texture = SKY_TEXTURE, std::string floor_texture = FLOOR_TEXTURE);
+        World(double length = WORLD_SIZE, double width = WORLD_SIZE, 
+              std::string sky_texture = SKY_TEXTURE, std::string floor_texture = FLOOR_TEXTURE);
 
         bool add_object2D(Object2D& object, std::string name);
         const std::map<std::string, Object2D&>& objects() const;

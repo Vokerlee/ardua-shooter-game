@@ -1,12 +1,12 @@
 #ifndef MANAGER_H
 #define MANAGER_H
 
-#include "../objects2D/circle2D.hpp"
-#include "../objects2D/polygon2D.hpp"
-#include "../world/world.hpp"
-#include "../camera/camera.hpp"
-#include "../menu/menu.hpp"
-#include "../config/config.hpp"
+#include "objects2D/circle2D.hpp"
+#include "objects2D/polygon2D.hpp"
+#include "world/world.hpp"
+#include "camera/camera.hpp"
+#include "menu/menu.hpp"
+#include "config/config.hpp"
 
 namespace ard
 {
@@ -19,8 +19,10 @@ namespace ard
         Menu menu_;
 
     public:
-        Manager(double screen_width = SCREEN_PIX_WIDTH, double screen_height = SCREEN_PIX_HEIGHT, 
-                double world_length = WORLD_SIZE,       double world_height  = WORLD_SIZE, std::string game_name = GAME_NAME);
+        Manager(double screen_width  = SCREEN_PIX_WIDTH, 
+                double screen_height = SCREEN_PIX_HEIGHT, 
+                double world_length  = WORLD_SIZE,       
+                double world_height  = WORLD_SIZE, std::string game_name = GAME_NAME);
 
         void set_world_length(double length);
         void set_world_width(double width);

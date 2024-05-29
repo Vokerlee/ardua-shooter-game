@@ -2,7 +2,8 @@
 
 using namespace ard;
 
-Manager::Manager(double screen_width, double screen_height, double world_length, double world_height, std::string game_name) :
+Manager::Manager(double screen_width, double screen_height, double world_length, 
+                 double world_height, std::string game_name) :
     window_(sf::VideoMode(screen_width, screen_height), game_name),
     world_(world_length, world_height),
     camera_(world_, { 4, 3 }),
@@ -27,7 +28,7 @@ void Manager::set_world_size(double size)
 
 void Manager::set_window_size(double length, double height)
 {
-    window_.setSize({ unsigned int(length), unsigned int(height) });
+    window_.setSize({ (unsigned int)length, (unsigned int)height });
 }
 
 void Manager::set_sky_texture(std::string sky)
@@ -102,7 +103,7 @@ void Manager::run()
             window_.setMouseCursorVisible(true);
             menu_.draw(window_);
         }
-        
+
         window_.display();
     }
 }

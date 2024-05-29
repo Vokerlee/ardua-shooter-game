@@ -6,12 +6,6 @@ cmake_minimum_required (VERSION 3.8)
 # PROJECT PROPERTIES
 project ("Ardua shooter" VERSION 0.0.3 LANGUAGES CXX)
 
-# COMPILATION OPTIONS
-set_target_properties(ardua PROPERTIES
-    CXX_STANDARD          14
-    CXX_STANDARD_REQUIRED ON
-)
-
 add_compile_options(
     -Werror
 
@@ -54,6 +48,10 @@ find_package(SFML COMPONENTS system window graphics network audio REQUIRED)
 
 # EXECUTABLE FILE
 add_executable(ardua ${SOURCES})
+set_target_properties(ardua PROPERTIES
+    CXX_STANDARD          14
+    CXX_STANDARD_REQUIRED ON
+)
 
 target_link_libraries(ardua sfml-graphics sfml-audio)
 target_include_directories(ardua PUBLIC src textures)

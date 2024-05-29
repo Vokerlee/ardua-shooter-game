@@ -108,27 +108,31 @@ void Weapon::draw(sf::RenderWindow& window)
         {
             if (arm_state_ == arm::RIGHT)
             {
-                fire_sprite_.setPosition(sf::Vector2f(SCREEN_PIX_WIDTH  / 2 - SCALE * 3.6 + breath_shift / 2 + fire_shift_ / 3,
-                                                      SCREEN_PIX_HEIGHT / 2 - SCALE * 0.9 + breath_shift / 2 + fire_shift_ / 3));
+                fire_sprite_.setPosition(
+                    sf::Vector2f(SCREEN_PIX_WIDTH  / 2 - SCALE * 3.6 + breath_shift / 2 + fire_shift_ / 3,
+                                 SCREEN_PIX_HEIGHT / 2 - SCALE * 0.9 + breath_shift / 2 + fire_shift_ / 3));
             }
             else if (arm_state_ == arm::LEFT)
             {
-                fire_sprite_.setPosition(sf::Vector2f(SCREEN_PIX_WIDTH  / 2 - SCALE * 3.6 - breath_shift / 2 + fire_shift_ / 3,
-                                                      SCREEN_PIX_HEIGHT / 2 - SCALE * 0.9 + breath_shift / 2 + fire_shift_ / 3));
+                fire_sprite_.setPosition(
+                    sf::Vector2f(SCREEN_PIX_WIDTH  / 2 - SCALE * 3.6 - breath_shift / 2 + fire_shift_ / 3,
+                                 SCREEN_PIX_HEIGHT / 2 - SCALE * 0.9 + breath_shift / 2 + fire_shift_ / 3));
             }
         }
         else
         {
-            fire_sprite_.setPosition(sf::Vector2f(SCREEN_PIX_WIDTH  / 2 - SCALE * 3.6 + breath_shift / 2 + fire_shift_ / 3,
-                                                  SCREEN_PIX_HEIGHT / 2 - SCALE * 0.9 + breath_shift / 2 + fire_shift_ / 3));
+            fire_sprite_.setPosition(
+                sf::Vector2f(SCREEN_PIX_WIDTH  / 2 - SCALE * 3.6 + breath_shift / 2 + fire_shift_ / 3,
+                             SCREEN_PIX_HEIGHT / 2 - SCALE * 0.9 + breath_shift / 2 + fire_shift_ / 3));
         }
 
         window.draw(fire_sprite_);
     }
 
     weapon_sprite_.setTexture(weapon_texture_);
-    weapon_sprite_.setPosition(sf::Vector2f(SCREEN_PIX_WIDTH  - weapon_sprite_.getTextureRect().width,
-                                            SCREEN_PIX_HEIGHT - weapon_sprite_.getTextureRect().height + breath_shift + fire_shift_));
+    weapon_sprite_.setPosition(
+        sf::Vector2f(SCREEN_PIX_WIDTH  - weapon_sprite_.getTextureRect().width,
+                     SCREEN_PIX_HEIGHT - weapon_sprite_.getTextureRect().height + breath_shift + fire_shift_));
     window.draw(weapon_sprite_);
 
     aim_sprite_.setTexture(aim_texture_);

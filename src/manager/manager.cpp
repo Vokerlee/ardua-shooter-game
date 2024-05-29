@@ -2,7 +2,8 @@
 
 using namespace ard;
 
-Manager::Manager(double screen_width, double screen_height, double world_length, double world_height, std::string game_name) :
+Manager::Manager(double screen_width, double screen_height, double world_length, 
+                 double world_height, std::string game_name) :
     window_(sf::VideoMode(screen_width, screen_height), game_name),
     world_(world_length, world_height),
     camera_(world_, { 4, 3 }),

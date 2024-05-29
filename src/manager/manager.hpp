@@ -19,8 +19,10 @@ namespace ard
         Menu menu_;
 
     public:
-        Manager(double screen_width = SCREEN_PIX_WIDTH, double screen_height = SCREEN_PIX_HEIGHT, 
-                double world_length = WORLD_SIZE,       double world_height  = WORLD_SIZE, std::string game_name = GAME_NAME);
+        Manager(double screen_width  = SCREEN_PIX_WIDTH, 
+                double screen_height = SCREEN_PIX_HEIGHT, 
+                double world_length  = WORLD_SIZE,       
+                double world_height  = WORLD_SIZE, std::string game_name = GAME_NAME);
 
         void set_world_length(double length);
         void set_world_width(double width);
